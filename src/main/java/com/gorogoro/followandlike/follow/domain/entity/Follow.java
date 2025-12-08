@@ -2,7 +2,12 @@ package com.gorogoro.followandlike.follow.domain.entity;
 
 import com.gorogoro.followandlike.common.domain.entity.CreationAuditEntity;
 import com.gorogoro.followandlike.follow.domain.exception.FollowException;
-import jakarta.persistence.*;
+import jakarta.persistence.CheckConstraint;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,16 +15,6 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.Objects;
 
-/*
- * 비즈니스 규칙
- * 1. 회원은 자기자신을 팔로우 할 수 없다: follower_id != followee_id
- * 2. 회원은 자신의 팔로우만 취소(unfollow)할 수 있다.
- * 3. unfollow == soft delete
- * 4. 팔로우 및 언팔로우는 멱등성을 가져야한다.
- *    4.1. 유일키 제약조건: follower_id, followee_id
- *    4.2. 중복이 존재하는 경우 별도 예외 발생 x
- *    4.3. 삭제 대상이 존재하지 않는 경우 별도 예외 발생 x
- */
 @Entity
 @Table(
     name = "follow",

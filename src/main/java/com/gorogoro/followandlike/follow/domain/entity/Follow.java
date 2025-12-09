@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AccessLevel;
@@ -28,6 +29,10 @@ import static com.gorogoro.followandlike.follow.domain.exception.FollowErrorCode
     check = @CheckConstraint(
             name = "follower_must_different_from_followee",
             constraint = "follower_id <> followee_id"
+    ),
+    indexes = @Index(
+            name = "idx_followee_id",
+            columnList = "followee_id"
     )
 )
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

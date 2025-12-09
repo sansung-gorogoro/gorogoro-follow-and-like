@@ -20,7 +20,7 @@ class FollowTest {
     }
 
     @Test
-    void shouldThrownFollowException_whenEntityCreation_givenIdIsNull() {
+    void shouldThrowFollowException_whenEntityCreation_givenIdIsNull() {
         assertThrows(FollowException.class, () -> {
             try {
                 new Follow(null);
@@ -32,7 +32,7 @@ class FollowTest {
     }
 
     @Test
-    void shouldThrownFollowException_whenEntityCreation_givenFollowerIdIsSameWithFolloweeId() {
+    void shouldThrowFollowException_whenEntityCreation_givenFollowerIdIsSameWithFolloweeId() {
         assertThrows(FollowException.class, () -> {
             try {
                 new Follow(new WhoFollowsWhom(1L, 1L));
@@ -44,7 +44,7 @@ class FollowTest {
     }
 
     @Test
-    void shouldThrownFollowException_whenIdCreation_givenFollowerIdIsNull() {
+    void shouldThrowFollowException_whenIdCreation_givenFollowerIdIsNull() {
         assertThrows(FollowException.class, () -> {
             try {
                 new WhoFollowsWhom(null, 1L);
@@ -56,7 +56,7 @@ class FollowTest {
     }
 
     @Test
-    void shouldThrownFollowException_whenIdCreation_givenFollowerIdIsNegative() {
+    void shouldThrowFollowException_whenIdCreation_givenFollowerIdIsNegative() {
         assertThrows(FollowException.class, () -> {
             try {
                 new WhoFollowsWhom(-2L, 1L);
@@ -68,7 +68,7 @@ class FollowTest {
     }
 
     @Test
-    void shouldThrownFollowException_whenIdCreation_givenFolloweeIdIsNull() {
+    void shouldThrowFollowException_whenIdCreation_givenFolloweeIdIsNull() {
         assertThrows(FollowException.class, () -> {
             try {
                 new WhoFollowsWhom(1L, null);
@@ -80,7 +80,7 @@ class FollowTest {
     }
 
     @Test
-    void shouldThrownFollowException_whenIdCreation_givenFolloweeIdIsNegative() {
+    void shouldThrowFollowException_whenIdCreation_givenFolloweeIdIsNegative() {
         assertThrows(FollowException.class, () -> {
             try {
                 new WhoFollowsWhom(1L, -2L);

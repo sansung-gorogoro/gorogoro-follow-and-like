@@ -1,6 +1,5 @@
 package com.gorogoro.followandlike.follow.domain.entity;
 
-import com.gorogoro.followandlike.follow.domain.entity.Follow.WhoFollowsWhom;
 import com.gorogoro.followandlike.follow.domain.exception.FollowException;
 import org.junit.jupiter.api.Test;
 
@@ -10,32 +9,25 @@ import static org.junit.jupiter.api.Assertions.*;
 class FollowTest {
 
     @Test
-    void shouldSuccess_whenEntityCreation_givenIdsIsValidlyDifferent() {
-        WhoFollowsWhom id = new WhoFollowsWhom(1L, 2L);
-        Follow follow = new Follow(id);
+    void shouldSuccess_whenCreation_givenIdsIsValidlyDifferent() {
+        Long followerId = 1L;
+        Long followeeId = 2L;
+        Follow follow = new Follow(followerId, followeeId);
         assertAll(
-                () -> assertEquals(1L, follow.getId().getFollowerId()),
-                () -> assertEquals(2L, follow.getId().getFolloweeId())
+                () -> assertEquals(1L, follow.getFollowerId()),
+                () -> assertEquals(2L, follow.getFolloweeId())
         );
     }
 
     @Test
-    void shouldThrowFollowException_whenEntityCreation_givenIdIsNull() {
+    void shouldThrowFollowException_whenCreation_givenFollowerIdIsSameWithFolloweeId() {
         assertThrows(FollowException.class, () -> {
-            try {
-                new Follow(null);
-            } catch (FollowException e) {
-                assertEquals(ID_IS_NULL, e.getCode());
-                throw e;
-            }
-        });
-    }
 
-    @Test
-    void shouldThrowFollowException_whenEntityCreation_givenFollowerIdIsSameWithFolloweeId() {
-        assertThrows(FollowException.class, () -> {
+            Long followerId = 1L;
+            Long followeeId = followerId;
+
             try {
-                new Follow(new WhoFollowsWhom(1L, 1L));
+                new Follow(followerId, followeeId);
             } catch (FollowException e) {
                 assertEquals(FOLLOWED_ONESELF, e.getCode());
                 throw e;
@@ -44,10 +36,14 @@ class FollowTest {
     }
 
     @Test
-    void shouldThrowFollowException_whenIdCreation_givenFollowerIdIsNull() {
+    void shouldThrowFollowException_whenCreation_givenFollowerIdIsNull() {
         assertThrows(FollowException.class, () -> {
+
+            Long followerId = null;
+            Long followeeId = 1L;
+
             try {
-                new WhoFollowsWhom(null, 1L);
+                new Follow(followerId, followeeId);
             } catch (FollowException e) {
                 assertEquals(FOLLOWER_ID_IS_NULL, e.getCode());
                 throw e;
@@ -56,10 +52,14 @@ class FollowTest {
     }
 
     @Test
-    void shouldThrowFollowException_whenIdCreation_givenFollowerIdIsNegative() {
+    void shouldThrowFollowException_whenCreation_givenFollowerIdIsNegative() {
         assertThrows(FollowException.class, () -> {
+
+            Long followerId = -1L;
+            Long followeeId = 1L;
+
             try {
-                new WhoFollowsWhom(-2L, 1L);
+                new Follow(followerId, followeeId);
             } catch (FollowException e) {
                 assertEquals(FOLLOWER_ID_IS_NEGATIVE, e.getCode());
                 throw e;
@@ -68,10 +68,14 @@ class FollowTest {
     }
 
     @Test
-    void shouldThrowFollowException_whenIdCreation_givenFolloweeIdIsNull() {
+    void shouldThrowFollowException_whenCreation_givenFolloweeIdIsNull() {
         assertThrows(FollowException.class, () -> {
+
+            Long followerId = 1L;
+            Long followeeId = null;
+
             try {
-                new WhoFollowsWhom(1L, null);
+                new Follow(followerId, followeeId);
             } catch (FollowException e) {
                 assertEquals(FOLLOWEE_ID_IS_NULL, e.getCode());
                 throw e;
@@ -80,30 +84,18 @@ class FollowTest {
     }
 
     @Test
-    void shouldThrowFollowException_whenIdCreation_givenFolloweeIdIsNegative() {
+    void shouldThrowFollowException_whenCreation_givenFolloweeIdIsNegative() {
         assertThrows(FollowException.class, () -> {
+
+            Long followerId = 1L;
+            Long followeeId = -1L;
+
             try {
-                new WhoFollowsWhom(1L, -2L);
+                new Follow(followerId, followeeId);
             } catch (FollowException e) {
                 assertEquals(FOLLOWEE_ID_IS_NEGATIVE, e.getCode());
                 throw e;
             }
         });
-    }
-
-    @Test
-    void shouldTwoEntitiesAreIdentical_whenCompareTwoEntity_givenEntitiesWhichHaveSameId() {
-        Follow one = new Follow(new WhoFollowsWhom(1L, 2L));
-        Follow another = new Follow(new WhoFollowsWhom(1L, 2L));
-
-        assertEquals(one, another);
-    }
-
-    @Test
-    void shouldTwoEntitiesAreDifferent_whenCompareTwoEntity_givenEntitiesWhichHaveDifferentId() {
-        Follow one = new Follow(new WhoFollowsWhom(1L, 2L));
-        Follow another = new Follow(new WhoFollowsWhom(2L, 1L));
-
-        assertNotEquals(one, another);
     }
 }

@@ -21,9 +21,14 @@ import static com.gorogoro.followandlike.follow.domain.exception.FollowErrorCode
 @Entity
 @Table(
     name = "follow",
-    uniqueConstraints
-            = @UniqueConstraint(name = "uq_follower_id_followee_id", columnNames = {"follower_id", "followee_id"}),
-    check = @CheckConstraint(name = "follower_must_different_from_followee", constraint = "follower_id <> followee_id")
+    uniqueConstraints = @UniqueConstraint(
+            name = "uq_follower_id_followee_id",
+            columnNames = {"follower_id", "followee_id"}
+    ),
+    check = @CheckConstraint(
+            name = "follower_must_different_from_followee",
+            constraint = "follower_id <> followee_id"
+    )
 )
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Follow extends CreationAuditEntity {

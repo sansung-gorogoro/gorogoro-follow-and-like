@@ -1,4 +1,4 @@
-package com.gorogoro.followandlike.follow.domain.entity;
+package com.gorogoro.followandlike.follow.domain.model;
 
 import com.gorogoro.followandlike.common.domain.entity.CreationAuditEntity;
 import com.gorogoro.followandlike.follow.domain.exception.FollowException;

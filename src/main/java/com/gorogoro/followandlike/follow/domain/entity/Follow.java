@@ -40,6 +40,7 @@ public class Follow extends CreationAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long id;
 
     @Column(nullable = false)

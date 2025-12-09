@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.Objects;
 
+import static com.gorogoro.followandlike.follow.domain.exception.FollowErrorCode.*;
+
 @Entity
 @Table(
     name = "follow",
@@ -28,6 +30,9 @@ public class Follow extends CreationAuditEntity {
     private WhoFollowsWhom id;
 
     public Follow(WhoFollowsWhom id) {
+        if (id == null) {
+            throw new FollowException(ID_IS_NULL);
+        }
         this.id = id;
     }
 
@@ -58,23 +63,27 @@ public class Follow extends CreationAuditEntity {
 
         public WhoFollowsWhom(Long followerId, Long followeeId) {
 
-            validateId(followerId, followeeId);
+            validate(followerId, followeeId);
 
             this.followerId = followerId;
             this.followeeId = followeeId;
         }
 
-        private static void validateId(Long followerId, Long followeeId) {
-            if (followerId == null || followeeId == null) {
-                throw new FollowException("followerId 또는 followeeId 가 null 입니다.");
+        private void validate(Long followerId, Long followeeId) {
+            if (followerId == null) {
+                throw new FollowException(FOLLOWER_ID_IS_NULL);
             }
-
-            if (followerId < 0 || followeeId < 0) {
-                throw new FollowException("followerId 또는 followeeId 가 음수입니다.");
+            if (followeeId == null) {
+                throw new FollowException(FOLLOWEE_ID_IS_NULL);
             }
-
+            if (followerId < 0) {
+                throw new FollowException(FOLLOWER_ID_IS_NEGATIVE);
+            }
+            if (followeeId < 0) {
+                throw new FollowException(FOLLOWEE_ID_IS_NEGATIVE);
+            }
             if (followerId.equals(followeeId)) {
-                throw new FollowException("자기자신을 팔로우할 수 없습니다. (followerId 와 followeeId 가 같습니다.)");
+                throw new FollowException(FOLLOWED_ONESELF);
             }
         }
 

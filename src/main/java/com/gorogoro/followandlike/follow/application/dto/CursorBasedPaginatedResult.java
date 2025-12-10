@@ -1,4 +1,4 @@
-package com.gorogoro.followandlike.follow.domain.model.dto;
+package com.gorogoro.followandlike.follow.application.dto;
 
 import lombok.NonNull;
 

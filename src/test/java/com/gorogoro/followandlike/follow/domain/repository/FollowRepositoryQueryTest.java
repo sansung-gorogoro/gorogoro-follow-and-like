@@ -1,7 +1,7 @@
 package com.gorogoro.followandlike.follow.domain.repository;
 
 import com.gorogoro.followandlike.follow.domain.model.Follow;
-import com.gorogoro.followandlike.follow.domain.model.dto.CursorBasedPaginatedResult;
+import com.gorogoro.followandlike.follow.application.dto.CursorBasedPaginatedResult;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

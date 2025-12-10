@@ -21,4 +21,6 @@ public interface FollowRepository {
     CursorBasedPaginatedResult<Follow> getFollowers(@NonNull Long followeeId, Long pageCursor, int fetchSize);
 
     Follow save(@NonNull Follow follow);
+
+    void deleteByFollowerIdAndFolloweeId(@NonNull Long followerId, @NonNull Long followeeId);
 }

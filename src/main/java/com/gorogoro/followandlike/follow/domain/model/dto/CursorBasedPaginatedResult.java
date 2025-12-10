@@ -1,4 +1,4 @@
-package com.gorogoro.followandlike.follow.infrastructure.jpa;
+package com.gorogoro.followandlike.follow.domain.model.dto;
 
 import lombok.NonNull;
 

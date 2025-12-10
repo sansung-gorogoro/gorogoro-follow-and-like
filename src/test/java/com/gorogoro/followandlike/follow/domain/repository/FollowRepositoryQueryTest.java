@@ -134,7 +134,7 @@ class FollowRepositoryQueryTest {
             }
 
             actual[r][0] = pageFound.nextCursor();
-            actual[r][1] = pageFound.hasNext() == true ? 1L : 0L;
+            actual[r][1] = pageFound.hasNext() ? 1L : 0L;
             actual[r][2] = null;
 
             r++;
@@ -208,7 +208,7 @@ class FollowRepositoryQueryTest {
             }
 
             actual[r][0] = pageFound.nextCursor();
-            actual[r][1] = pageFound.hasNext() == true ? 1L : 0L;
+            actual[r][1] = pageFound.hasNext() ? 1L : 0L;
             actual[r][2] = null;
 
             r++;

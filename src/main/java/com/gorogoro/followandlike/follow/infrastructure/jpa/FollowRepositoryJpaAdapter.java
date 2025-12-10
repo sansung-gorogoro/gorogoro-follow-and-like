@@ -3,7 +3,6 @@ package com.gorogoro.followandlike.follow.infrastructure.jpa;
 import com.gorogoro.followandlike.follow.domain.model.Follow;
 import com.gorogoro.followandlike.follow.application.dto.CursorBasedPaginatedResult;
 import com.gorogoro.followandlike.follow.domain.repository.FollowRepository;
-import lombok.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,24 +26,24 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
     // Query --------------------
 
     @Override
-    public Optional<Follow> findById(@NonNull Long id) {
+    public Optional<Follow> findById(Long id) {
         return followJpaRepository.findById(id);
     }
 
     @Override
-    public Optional<Follow> findByFollowerIdAndFolloweeId(@NonNull Long followerId, @NonNull Long followeeId) {
+    public Optional<Follow> findByFollowerIdAndFolloweeId(Long followerId, Long followeeId) {
         Objects.requireNonNull(followerId, "followerId");
         Objects.requireNonNull(followeeId, "followeeId");
         return followJpaRepository.findByFollowerIdAndFolloweeId(followerId, followeeId);
     }
 
     @Override
-    public long countByFollowerId(@NonNull Long followerId) {
+    public long countByFollowerId(Long followerId) {
         return followJpaRepository.countByFollowerId(followerId);
     }
 
     @Override
-    public long countByFolloweeId(@NonNull Long followeeId) {
+    public long countByFolloweeId(Long followeeId) {
         return followJpaRepository.countByFolloweeId(followeeId);
     }
 
@@ -62,7 +61,7 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
      * @param fetchSize MIN_FETCH_SIZE 보다 커야하고, MAX_FETCH_SIZE 보다 작아야 함.
      */
     @Override
-    public CursorBasedPaginatedResult<Follow> getFollowings(@NonNull Long followerId, Long pageCursor, int fetchSize) {
+    public CursorBasedPaginatedResult<Follow> getFollowings(Long followerId, Long pageCursor, int fetchSize) {
 
         validateFetchSize(fetchSize);
 
@@ -87,7 +86,7 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
      * @param fetchSize MIN_FETCH_SIZE 보다 커야하고, MAX_FETCH_SIZE 보다 작아야 함.
      */
     @Override
-    public CursorBasedPaginatedResult<Follow> getFollowers(@NonNull Long followeeId, Long pageCursor, int fetchSize) {
+    public CursorBasedPaginatedResult<Follow> getFollowers(Long followeeId, Long pageCursor, int fetchSize) {
 
         validateFetchSize(fetchSize);
 
@@ -108,12 +107,12 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
     // Command --------------------
 
     @Override
-    public Follow save(@NonNull Follow follow) {
+    public Follow save(Follow follow) {
         return followJpaRepository.save(follow);
     }
 
     @Override
-    public void deleteByFollowerIdAndFolloweeId(@NonNull Long followerId, @NonNull Long followeeId) {
+    public void deleteByFollowerIdAndFolloweeId(Long followerId, Long followeeId) {
         followJpaRepository.deleteByFollowerIdAndFolloweeId(followerId, followeeId);
     }
 

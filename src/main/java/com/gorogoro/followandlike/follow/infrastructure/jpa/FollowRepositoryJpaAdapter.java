@@ -1,7 +1,7 @@
 package com.gorogoro.followandlike.follow.infrastructure.jpa;
 
 import com.gorogoro.followandlike.follow.domain.model.Follow;
-import com.gorogoro.followandlike.follow.domain.model.dto.CursorBasedPaginatedResult;
+import com.gorogoro.followandlike.follow.application.dto.CursorBasedPaginatedResult;
 import com.gorogoro.followandlike.follow.domain.repository.FollowRepository;
 import lombok.NonNull;
 import org.jspecify.annotations.Nullable;

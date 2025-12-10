@@ -226,7 +226,6 @@ class FollowRepositoryQueryTest {
 
     // Helper Methods --------------------
 
-    boolean firstPrintToggle;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeEach

@@ -29,7 +29,7 @@ class FollowTest {
             try {
                 new Follow(followerId, followeeId);
             } catch (FollowException e) {
-                assertEquals(FOLLOWED_ONESELF, e.getCode());
+                assertEquals(FOLLOWED_ONESELF, e.getErrorCode());
                 throw e;
             }
         });
@@ -45,7 +45,7 @@ class FollowTest {
             try {
                 new Follow(followerId, followeeId);
             } catch (FollowException e) {
-                assertEquals(FOLLOWER_ID_IS_NULL, e.getCode());
+                assertEquals(FOLLOWER_ID_IS_NULL, e.getErrorCode());
                 throw e;
             }
         });
@@ -61,7 +61,7 @@ class FollowTest {
             try {
                 new Follow(followerId, followeeId);
             } catch (FollowException e) {
-                assertEquals(FOLLOWER_ID_IS_NEGATIVE, e.getCode());
+                assertEquals(FOLLOWER_ID_IS_NEGATIVE, e.getErrorCode());
                 throw e;
             }
         });
@@ -77,7 +77,7 @@ class FollowTest {
             try {
                 new Follow(followerId, followeeId);
             } catch (FollowException e) {
-                assertEquals(FOLLOWEE_ID_IS_NULL, e.getCode());
+                assertEquals(FOLLOWEE_ID_IS_NULL, e.getErrorCode());
                 throw e;
             }
         });
@@ -93,7 +93,7 @@ class FollowTest {
             try {
                 new Follow(followerId, followeeId);
             } catch (FollowException e) {
-                assertEquals(FOLLOWEE_ID_IS_NEGATIVE, e.getCode());
+                assertEquals(FOLLOWEE_ID_IS_NEGATIVE, e.getErrorCode());
                 throw e;
             }
         });

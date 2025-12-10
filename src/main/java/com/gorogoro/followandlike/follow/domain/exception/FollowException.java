@@ -5,11 +5,7 @@ import lombok.Getter;
 
 public class FollowException extends BaseDomainException {
 
-    @Getter
-    private final FollowErrorCode code;
-
     public FollowException(FollowErrorCode code) {
-        super(code.getMessage());
-        this.code = code;
+        super(code);
     }
 }

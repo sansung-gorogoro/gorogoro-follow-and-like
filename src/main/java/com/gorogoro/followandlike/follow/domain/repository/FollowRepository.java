@@ -16,9 +16,9 @@ public interface FollowRepository {
 
     long countByFolloweeId(@NonNull Long followeeId);
 
-    public CursorBasedPaginatedResult<Follow> getFollowings(@NonNull Long followerId, Long pageCursor, int fetchSize);
+    CursorBasedPaginatedResult<Follow> getFollowings(@NonNull Long followerId, Long pageCursor, int fetchSize);
 
-    public CursorBasedPaginatedResult<Follow> getFollowers(@NonNull Long followeeId, Long pageCursor, int fetchSize);
+    CursorBasedPaginatedResult<Follow> getFollowers(@NonNull Long followeeId, Long pageCursor, int fetchSize);
 
     Follow save(@NonNull Follow follow);
 }

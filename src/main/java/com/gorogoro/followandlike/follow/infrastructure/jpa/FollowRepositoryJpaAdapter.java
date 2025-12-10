@@ -25,20 +25,24 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
 
     // Query --------------------
 
+    @Override
     public Optional<Follow> findById(@NonNull Long id) {
         return followJpaRepository.findById(id);
     }
 
+    @Override
     public Optional<Follow> findByFollowerIdAndFolloweeId(@NonNull Long followerId, @NonNull Long followeeId) {
         Objects.requireNonNull(followerId, "followerId");
         Objects.requireNonNull(followeeId, "followeeId");
         return followJpaRepository.findByFollowerIdAndFolloweeId(followerId, followeeId);
     }
 
+    @Override
     public long countByFollowerId(@NonNull Long followerId) {
         return followJpaRepository.countByFollowerId(followerId);
     }
 
+    @Override
     public long countByFolloweeId(@NonNull Long followeeId) {
         return followJpaRepository.countByFolloweeId(followeeId);
     }
@@ -56,6 +60,7 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
      * @param pageCursor exclusive, null 인 경우 첫 페이지 반환함
      * @param fetchSize MIN_FETCH_SIZE 보다 커야하고, MAX_FETCH_SIZE 보다 작아야 함.
      */
+    @Override
     public CursorBasedPaginatedResult<Follow> getFollowings(@NonNull Long followerId, Long pageCursor, int fetchSize) {
 
         validateFetchSize(fetchSize);
@@ -80,6 +85,7 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
      * @param pageCursor exclusive, null 인 경우 첫 페이지 반환함
      * @param fetchSize MIN_FETCH_SIZE 보다 커야하고, MAX_FETCH_SIZE 보다 작아야 함.
      */
+    @Override
     public CursorBasedPaginatedResult<Follow> getFollowers(@NonNull Long followeeId, Long pageCursor, int fetchSize) {
 
         validateFetchSize(fetchSize);
@@ -100,10 +106,12 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
 
     // Command --------------------
 
+    @Override
     public Follow save(@NonNull Follow follow) {
         return followJpaRepository.save(follow);
     }
 
+    @Override
     // Helper methods --------------------
 
     private void validateFetchSize(int fetchSize) {

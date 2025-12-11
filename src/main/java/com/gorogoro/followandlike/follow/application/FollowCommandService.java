@@ -17,12 +17,6 @@ public class FollowCommandService {
     }
 
     public void follow(Long followerId, Long followeeId) {
-        Optional<Follow> optionalFollow = followRepository.findByFollowerIdAndFolloweeId(followerId, followeeId);
-        if (optionalFollow.isPresent()) {
-            // 이미 존재하는 팔로우에 대해서도 문제 없이 넘어가야 함. (팔로우 멱등성 보장)
-            return;
-        }
-
         Follow follow = new Follow(followerId, followeeId);
         try {
             followRepository.save(follow);
@@ -32,12 +26,6 @@ public class FollowCommandService {
     }
 
     public void unfollow(Long followerId, Long followeeId) {
-        Optional<Follow> optionalFollow = followRepository.findByFollowerIdAndFolloweeId(followerId, followeeId);
-        if (optionalFollow.isEmpty()) {
-            // 이미 취소된 팔로우에 대해서도 문제 없이 넘어가야 함. (팔로우 취소 멱등성 보장)
-            return;
-        }
-
         try {
             followRepository.deleteByFollowerIdAndFolloweeId(followerId, followeeId);
         } catch (DataIntegrityViolationException e) {

@@ -112,6 +112,11 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
     }
 
     @Override
+    public void delete(Follow follow) {
+        followJpaRepository.delete(follow);
+    }
+
+    @Override
     public void deleteByFollowerIdAndFolloweeId(Long followerId, Long followeeId) {
         followJpaRepository.deleteByFollowerIdAndFolloweeId(followerId, followeeId);
     }

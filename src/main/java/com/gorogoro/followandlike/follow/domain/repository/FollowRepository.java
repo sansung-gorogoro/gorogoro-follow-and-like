@@ -21,5 +21,7 @@ public interface FollowRepository {
 
     Follow save(Follow follow);
 
+    void delete(Follow follow);
+
     void deleteByFollowerIdAndFolloweeId(Long followerId, Long followeeId);
 }

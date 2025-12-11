@@ -1,4 +1,4 @@
-package com.gorogoro.followandlike.common.exception;
+package com.gorogoro.followandlike.common.domain.exception;
 
 import org.springframework.http.HttpStatusCode;
 

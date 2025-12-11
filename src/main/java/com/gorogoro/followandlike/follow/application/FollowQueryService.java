@@ -50,7 +50,7 @@ public class FollowQueryService {
                 .map(FollowResponse::from)
                 .toList();
 
-        return new CursorBasedPaginatedResult<FollowResponse>(
+        return new CursorBasedPaginatedResult<>(
                 responseContent, followings.nextCursor(), followings.hasNext());
     }
 
@@ -62,7 +62,7 @@ public class FollowQueryService {
                 .map(FollowResponse::from)
                 .toList();
 
-        return new CursorBasedPaginatedResult<FollowResponse>(
+        return new CursorBasedPaginatedResult<>(
                 responseContent, followings.nextCursor(), followings.hasNext());
     }
 }

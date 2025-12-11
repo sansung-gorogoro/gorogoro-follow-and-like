@@ -33,7 +33,7 @@ public class FollowCommandService {
         }
     }
 
-    public void cancel(Long followerId, Long followeeId) {
+    public void unfollow(Long followerId, Long followeeId) {
         Optional<Follow> optionalFollow = followRepository.findByFollowerIdAndFolloweeId(followerId, followeeId);
         if (optionalFollow.isEmpty()) {
             // 이미 취소된 팔로우에 대해서도 문제 없이 넘어가야 함. (팔로우 취소 멱등성 보장)

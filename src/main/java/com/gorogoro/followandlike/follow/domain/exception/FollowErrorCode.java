@@ -1,6 +1,6 @@
 package com.gorogoro.followandlike.follow.domain.exception;
 
-import com.gorogoro.followandlike.common.exception.ErrorCode;
+import com.gorogoro.followandlike.common.domain.exception.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 public enum FollowErrorCode implements ErrorCode {

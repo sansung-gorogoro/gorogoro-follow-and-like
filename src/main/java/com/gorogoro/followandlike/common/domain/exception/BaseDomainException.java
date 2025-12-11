@@ -1,4 +1,4 @@
-package com.gorogoro.followandlike.common.exception;
+package com.gorogoro.followandlike.common.domain.exception;
 
 public class BaseDomainException extends RuntimeException {
 

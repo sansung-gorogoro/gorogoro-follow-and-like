@@ -6,12 +6,14 @@ import com.gorogoro.followandlike.follow.application.dto.CursorBasedPaginatedRes
 import com.gorogoro.followandlike.follow.domain.model.Follow;
 import com.gorogoro.followandlike.follow.domain.repository.FollowRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static com.gorogoro.followandlike.follow.domain.exception.FollowErrorCode.FOLLOW_NOT_FOUND;
 
 @Service
+@Transactional(readOnly = true)
 public class FollowQueryService {
 
     private final FollowRepository followRepository;

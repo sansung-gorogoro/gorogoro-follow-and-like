@@ -5,12 +5,14 @@ import com.gorogoro.followandlike.follow.domain.model.Follow;
 import com.gorogoro.followandlike.follow.domain.repository.FollowRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 import static com.gorogoro.followandlike.follow.domain.exception.FollowErrorCode.UNFOLLOW_PERMISSION_DENIED;
 
 @Service
+@Transactional
 public class FollowCommandService {
 
     private final FollowRepository followRepository;

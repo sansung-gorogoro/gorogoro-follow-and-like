@@ -4,7 +4,6 @@ import com.gorogoro.followandlike.follow.domain.model.Follow;
 import com.gorogoro.followandlike.follow.domain.repository.FollowRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -17,7 +16,6 @@ public class FollowCommandService {
         this.followRepository = followRepository;
     }
 
-    @Transactional
     public void follow(Long followerId, Long followeeId) {
         Optional<Follow> optionalFollow = followRepository.findByFollowerIdAndFolloweeId(followerId, followeeId);
         if (optionalFollow.isPresent()) {

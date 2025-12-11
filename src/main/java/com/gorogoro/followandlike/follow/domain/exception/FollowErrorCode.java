@@ -24,7 +24,7 @@ public enum FollowErrorCode implements ErrorCode {
 
 
     @Override
-    public HttpStatus getHttpStatus() {
+    public HttpStatus getHttpStatusCode() {
         return httpStatus;
     }
 

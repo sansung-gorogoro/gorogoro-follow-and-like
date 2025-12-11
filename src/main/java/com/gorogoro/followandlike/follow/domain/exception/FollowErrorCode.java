@@ -11,7 +11,7 @@ public enum FollowErrorCode implements ErrorCode {
     FOLLOWEE_ID_IS_NEGATIVE(HttpStatus.BAD_REQUEST, "followeeId 가 음수입니다."),
     FOLLOWED_ONESELF(HttpStatus.BAD_REQUEST, "자기자신을 팔로우할 수 없습니다. followerId 와 followeeId 가 같습니다."),
     FOLLOW_NOT_FOUND(HttpStatus.NOT_FOUND, "팔로우를 찾을 수 없습니다."),
-
+    UNFOLLOW_PERMISSION_DENIED(HttpStatus.FORBIDDEN, "다른 회원의 팔로우는 취소할 수 없습니다."),
     ;
 
     private final HttpStatus httpStatus;

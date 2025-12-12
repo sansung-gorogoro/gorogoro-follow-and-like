@@ -31,29 +31,24 @@ public class FollowCommandService {
     }
 
     public void unfollow(Long followerId, Long followeeId) {
-        try {
-            followRepository.deleteByFollowerIdAndFolloweeId(followerId, followeeId);
-        } catch (DataIntegrityViolationException e) {
-            // 다른 트랜잭션에서 이미 팔로우 취소가 완료된 경우에도 문제 없이 넘어가야 함. (팔로우 취소 멱등성 보장)
-        }
+        // DB에 삭제 대상이 없어도 별도 예외가 발생하지 않으므로 멱등성이 보장된다.
+        followRepository.deleteByFollowerIdAndFolloweeId(followerId, followeeId);
     }
 
     public void unfollowById(Long userId, Long followId) {
         Optional<Follow> optionalFollow = followRepository.findById(followId);
         if (optionalFollow.isEmpty()) {
-            // 이미 취소된 팔로우에 대해서도 문제 없이 넘어가야 함. (팔로우 취소 멱등성 보장)
+            // 언팔로우 멱등성 보장
             return;
         }
 
+        // 권한 확인(내 것만 언팔 가능)
         Follow followFound = optionalFollow.get();
         if (!followFound.getFollowerId().equals(userId)) {
             throw new FollowException(UNFOLLOW_PERMISSION_DENIED);
         }
 
-        try {
-            followRepository.delete(followFound);
-        } catch (DataIntegrityViolationException e) {
-            // 다른 트랜잭션에서 이미 팔로우 취소가 완료된 경우에도 문제 없이 넘어가야 함. (팔로우 취소 멱등성 보장)
-        }
+        // DB에 삭제 대상이 없어도 별도 예외가 발생하지 않으므로 멱등성이 보장된다.
+        followRepository.delete(followFound);
     }
 }

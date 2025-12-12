@@ -10,6 +10,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -109,6 +110,12 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
     @Override
     public Follow save(Follow follow) {
         return followJpaRepository.save(follow);
+    }
+
+    @Override
+    public void saveIdempotently(Follow follow) {
+        // 네이티브 쿼리 사용 시 JPA Auditing 기능 적용되지 않으므로 직접 createdAt 을 넣어줘야됨
+        followJpaRepository.saveIdempotently(follow.getFollowerId(), follow.getFolloweeId(), Instant.now());
     }
 
     @Override

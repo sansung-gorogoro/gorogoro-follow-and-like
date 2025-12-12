@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.gorogoro.followandlike.follow.domain.exception.FollowErrorCode.FOLLOW_NOT_FOUND;
 
@@ -30,10 +31,9 @@ public class FollowQueryService {
     }
 
     public FollowResponse findByFollowerIdAndFolloweeId(Long followerId, Long followeeId) {
-        return FollowResponse.from(
-                followRepository.findByFollowerIdAndFolloweeId(followerId, followeeId)
-                        .orElseThrow(() -> new FollowException(FOLLOW_NOT_FOUND))
-        );
+
+        Optional<Follow> optionalFollow = followRepository.findByFollowerIdAndFolloweeId(followerId, followeeId);
+        return optionalFollow.map(FollowResponse::from).orElse(null);
     }
 
     public long countByFollowerId(Long followerId) {

@@ -49,7 +49,8 @@ class FollowCommandServiceTest {
     @Test
     void shouldFollowIdempotent() {
 
-        Follow found1 = followRepository.findByFollowerIdAndFolloweeId(FOLLOWER_ID, FOLLOWEE_ID).get();
+        Follow found1 = followRepository.findByFollowerIdAndFolloweeId(FOLLOWER_ID, FOLLOWEE_ID)
+                .get();  // 문제 발생 하면 실패 의도함
         long followeeCount1 = followRepository.countByFollowerId(FOLLOWER_ID);
         long followerCount1 = followRepository.countByFolloweeId(FOLLOWEE_ID);
 
@@ -57,7 +58,8 @@ class FollowCommandServiceTest {
         followCommandService.follow(FOLLOWER_ID, FOLLOWEE_ID);
         followCommandService.follow(FOLLOWER_ID, FOLLOWEE_ID);
 
-        Follow found2 = followRepository.findByFollowerIdAndFolloweeId(FOLLOWER_ID, FOLLOWEE_ID).get();
+        Follow found2 = followRepository.findByFollowerIdAndFolloweeId(FOLLOWER_ID, FOLLOWEE_ID)
+                .get();  // 문제 발생 하면 실패 의도함
         long followeeCount2 = followRepository.countByFollowerId(FOLLOWER_ID);
         long followerCount2 = followRepository.countByFolloweeId(FOLLOWEE_ID);
 
@@ -76,7 +78,8 @@ class FollowCommandServiceTest {
 
     @Test
     void shouldUnfollowIdempotent() {
-        Follow found = followRepository.findByFollowerIdAndFolloweeId(FOLLOWER_ID, FOLLOWEE_ID).get();
+        Follow found = followRepository.findByFollowerIdAndFolloweeId(FOLLOWER_ID, FOLLOWEE_ID)
+                .get();  // 문제 발생 하면 실패 의도함
         long followeeCount = followRepository.countByFollowerId(FOLLOWER_ID);
         long followerCount = followRepository.countByFolloweeId(FOLLOWEE_ID);
 

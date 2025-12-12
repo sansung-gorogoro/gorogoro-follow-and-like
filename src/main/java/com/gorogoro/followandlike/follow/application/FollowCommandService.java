@@ -3,7 +3,6 @@ package com.gorogoro.followandlike.follow.application;
 import com.gorogoro.followandlike.follow.domain.exception.FollowException;
 import com.gorogoro.followandlike.follow.domain.model.Follow;
 import com.gorogoro.followandlike.follow.domain.repository.FollowRepository;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,11 +22,7 @@ public class FollowCommandService {
 
     public void follow(Long followerId, Long followeeId) {
         Follow follow = new Follow(followerId, followeeId);
-        try {
-            followRepository.save(follow);
-        } catch (DataIntegrityViolationException e) {
-            // 다른 트랜잭션에서 이미 팔로우 처리가 완료된 경우에도 문제 없이 넘어가야 함. (팔로우 멱등성 보장)
-        }
+        followRepository.saveIdempotently(follow);
     }
 
     public void unfollow(Long followerId, Long followeeId) {

@@ -21,6 +21,11 @@ public interface FollowRepository {
 
     Follow save(Follow follow);
 
+    /**
+     * 멱등 insert 를 수행합니다. 예외가 발생하지 않으면 정상 동작한 것으로 간주합니다.
+     */
+    void saveIdempotently(Follow follow);
+
     void delete(Follow follow);
 
     void deleteByFollowerIdAndFolloweeId(Long followerId, Long followeeId);

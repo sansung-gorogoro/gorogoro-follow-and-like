@@ -17,7 +17,6 @@ public record FollowersCursorPageRequest(
             throw new IllegalArgumentException("followeeId 는 양수여야 합니다. followeeId = " + followeeId);
         }
 
-        Objects.requireNonNull(pageCursor, "pageCursor");
         if (pageCursor < 0) {
             throw new IllegalArgumentException("pageCursor는 음수일 수 없습니다. pageCursor = " + pageCursor);
         }

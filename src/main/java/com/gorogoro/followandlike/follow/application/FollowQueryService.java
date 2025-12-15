@@ -3,7 +3,7 @@ package com.gorogoro.followandlike.follow.application;
 import com.gorogoro.followandlike.follow.application.dto.FollowersCursorPageRequest;
 import com.gorogoro.followandlike.follow.application.dto.FollowingsCursorPageRequest;
 import com.gorogoro.followandlike.follow.application.dto.FollowResponse;
-import com.gorogoro.followandlike.follow.application.dto.RequiredPositiveId;
+import com.gorogoro.followandlike.follow.application.dto.RequiredNonNegativeId;
 import com.gorogoro.followandlike.follow.application.dto.WhoFollowsWhom;
 import com.gorogoro.followandlike.follow.domain.exception.FollowException;
 import com.gorogoro.followandlike.follow.application.dto.CursorPageResponse;
@@ -27,9 +27,9 @@ public class FollowQueryService {
         this.followRepository = followRepository;
     }
 
-    public FollowResponse findById(RequiredPositiveId requiredPositiveId) {
+    public FollowResponse findById(RequiredNonNegativeId requiredNonNegativeId) {
         return FollowResponse.from(
-                followRepository.findById(requiredPositiveId.val())
+                followRepository.findById(requiredNonNegativeId.val())
                         .orElseThrow(() -> new FollowException(FOLLOW_NOT_FOUND))
         );
     }
@@ -42,11 +42,11 @@ public class FollowQueryService {
         return optionalFollow.map(FollowResponse::from).orElse(null);
     }
 
-    public long countByFollowerId(RequiredPositiveId followerId) {
+    public long countByFollowerId(RequiredNonNegativeId followerId) {
         return followRepository.countByFollowerId(followerId.val());
     }
 
-    public long countByFolloweeId(RequiredPositiveId followeeId) {
+    public long countByFolloweeId(RequiredNonNegativeId followeeId) {
         return followRepository.countByFolloweeId(followeeId.val());
     }
 

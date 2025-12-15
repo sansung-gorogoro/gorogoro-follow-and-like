@@ -1,7 +1,7 @@
 package com.gorogoro.followandlike.follow.infrastructure.jpa;
 
 import com.gorogoro.followandlike.follow.domain.model.Follow;
-import com.gorogoro.followandlike.follow.application.dto.CursorBasedPaginatedResponse;
+import com.gorogoro.followandlike.follow.application.dto.CursorPageResponse;
 import com.gorogoro.followandlike.follow.domain.repository.FollowRepository;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.PageRequest;
@@ -50,8 +50,6 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
 
     // Paging --------------------
 
-    private final int MIN_FETCH_SIZE = 1;
-    private final int MAX_FETCH_SIZE = 100;
     private final int ZERO_FIXED = 0;
     private final String PAGE_SORT_CRITERIA_FIELD_NAME = "id";
 
@@ -62,9 +60,7 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
      * @param fetchSize MIN_FETCH_SIZE 보다 커야하고, MAX_FETCH_SIZE 보다 작아야 함.
      */
     @Override
-    public CursorBasedPaginatedResponse<Follow> getFollowings(Long followerId, Long pageCursor, int fetchSize) {
-
-        validateFetchSize(fetchSize);
+    public CursorPageResponse<Follow> getFollowings(Long followerId, Long pageCursor, int fetchSize) {
 
         Pageable pageable = getPageable(fetchSize);
 
@@ -77,7 +73,7 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
 
         List<Follow> content = sliceToFollows(slice);
         Long nextCursor = getNextCursor(content, slice);
-        return new CursorBasedPaginatedResponse<>(content, nextCursor, slice.hasNext());
+        return new CursorPageResponse<>(content, nextCursor, slice.hasNext());
     }
 
     /**
@@ -87,9 +83,7 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
      * @param fetchSize MIN_FETCH_SIZE 보다 커야하고, MAX_FETCH_SIZE 보다 작아야 함.
      */
     @Override
-    public CursorBasedPaginatedResponse<Follow> getFollowers(Long followeeId, Long pageCursor, int fetchSize) {
-
-        validateFetchSize(fetchSize);
+    public CursorPageResponse<Follow> getFollowers(Long followeeId, Long pageCursor, int fetchSize) {
 
         Pageable pageable = getPageable(fetchSize);
 
@@ -102,7 +96,7 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
 
         List<Follow> content = sliceToFollows(slice);
         Long nextCursor = getNextCursor(content, slice);
-        return new CursorBasedPaginatedResponse<>(content, nextCursor, slice.hasNext());
+        return new CursorPageResponse<>(content, nextCursor, slice.hasNext());
     }
 
     // Command --------------------
@@ -129,13 +123,6 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
     }
 
     // Helper methods --------------------
-
-    private void validateFetchSize(int fetchSize) {
-        if (fetchSize < MIN_FETCH_SIZE || MAX_FETCH_SIZE < fetchSize) {
-            throw new IllegalArgumentException(
-                    "fetchSize 가 " + MIN_FETCH_SIZE +" 보다 작거나 " + MAX_FETCH_SIZE + " 보다 큽니다.");
-        }
-    }
 
     private Pageable getPageable(int fetchSize) {
         return PageRequest.of(

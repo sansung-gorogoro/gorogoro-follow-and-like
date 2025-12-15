@@ -2,7 +2,7 @@ package com.gorogoro.followandlike.follow.application.dto;
 
 import java.util.List;
 
-public record CursorBasedPaginatedResponse<T> (
+public record CursorPageResponse<T> (
         List<T> content,
         Long nextCursor,
         Boolean hasNext

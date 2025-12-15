@@ -1,5 +1,6 @@
 package com.gorogoro.followandlike.follow.application;
 
+import com.gorogoro.followandlike.follow.application.dto.WhoFollowsWhom;
 import com.gorogoro.followandlike.follow.domain.model.Follow;
 import com.gorogoro.followandlike.follow.domain.repository.FollowRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -36,12 +37,12 @@ class FollowCommandServiceTest {
 
     @BeforeEach
     void setup() {
-        followCommandService.follow(FOLLOWER_ID, FOLLOWEE_ID);
+        followCommandService.follow(new WhoFollowsWhom(FOLLOWER_ID, FOLLOWEE_ID));
     }
 
     @AfterEach
     void teardown() {
-        followCommandService.unfollow(FOLLOWER_ID, FOLLOWEE_ID);
+        followCommandService.unfollow(new WhoFollowsWhom(FOLLOWER_ID, FOLLOWEE_ID));
     }
 
     // Unit Tests --------------------
@@ -54,9 +55,9 @@ class FollowCommandServiceTest {
         long followeeCount1 = followRepository.countByFollowerId(FOLLOWER_ID);
         long followerCount1 = followRepository.countByFolloweeId(FOLLOWEE_ID);
 
-        followCommandService.follow(FOLLOWER_ID, FOLLOWEE_ID);
-        followCommandService.follow(FOLLOWER_ID, FOLLOWEE_ID);
-        followCommandService.follow(FOLLOWER_ID, FOLLOWEE_ID);
+        followCommandService.follow(new WhoFollowsWhom(FOLLOWER_ID, FOLLOWEE_ID));
+        followCommandService.follow(new WhoFollowsWhom(FOLLOWER_ID, FOLLOWEE_ID));
+        followCommandService.follow(new WhoFollowsWhom(FOLLOWER_ID, FOLLOWEE_ID));
 
         Follow found2 = followRepository.findByFollowerIdAndFolloweeId(FOLLOWER_ID, FOLLOWEE_ID)
                 .get();  // 문제 발생 하면 실패 의도함
@@ -83,9 +84,9 @@ class FollowCommandServiceTest {
         long followeeCount = followRepository.countByFollowerId(FOLLOWER_ID);
         long followerCount = followRepository.countByFolloweeId(FOLLOWEE_ID);
 
-        followCommandService.unfollow(FOLLOWER_ID, FOLLOWEE_ID);
-        followCommandService.unfollow(FOLLOWER_ID, FOLLOWEE_ID);
-        followCommandService.unfollow(FOLLOWER_ID, FOLLOWEE_ID);
+        followCommandService.unfollow(new WhoFollowsWhom(FOLLOWER_ID, FOLLOWEE_ID));
+        followCommandService.unfollow(new WhoFollowsWhom(FOLLOWER_ID, FOLLOWEE_ID));
+        followCommandService.unfollow(new WhoFollowsWhom(FOLLOWER_ID, FOLLOWEE_ID));
 
         assertAll(
                 () -> assertNotNull(found),

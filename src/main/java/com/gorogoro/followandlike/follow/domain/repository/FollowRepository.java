@@ -1,7 +1,7 @@
 package com.gorogoro.followandlike.follow.domain.repository;
 
 import com.gorogoro.followandlike.follow.domain.model.Follow;
-import com.gorogoro.followandlike.follow.application.dto.CursorBasedPaginatedResponse;
+import com.gorogoro.followandlike.follow.application.dto.CursorPageResponse;
 
 import java.util.Optional;
 
@@ -15,9 +15,9 @@ public interface FollowRepository {
 
     long countByFolloweeId(Long followeeId);
 
-    CursorBasedPaginatedResponse<Follow> getFollowings(Long followerId, Long pageCursor, int fetchSize);
+    CursorPageResponse<Follow> getFollowings(Long followerId, Long pageCursor, int fetchSize);
 
-    CursorBasedPaginatedResponse<Follow> getFollowers(Long followeeId, Long pageCursor, int fetchSize);
+    CursorPageResponse<Follow> getFollowers(Long followeeId, Long pageCursor, int fetchSize);
 
     Follow save(Follow follow);
 

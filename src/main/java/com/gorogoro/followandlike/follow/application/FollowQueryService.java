@@ -2,7 +2,7 @@ package com.gorogoro.followandlike.follow.application;
 
 import com.gorogoro.followandlike.follow.application.dto.FollowResponse;
 import com.gorogoro.followandlike.follow.domain.exception.FollowException;
-import com.gorogoro.followandlike.follow.application.dto.CursorBasedPaginatedResult;
+import com.gorogoro.followandlike.follow.application.dto.CursorBasedPaginatedResponse;
 import com.gorogoro.followandlike.follow.domain.model.Follow;
 import com.gorogoro.followandlike.follow.domain.repository.FollowRepository;
 import org.springframework.stereotype.Service;
@@ -46,25 +46,29 @@ public class FollowQueryService {
 
     public CursorBasedPaginatedResult<FollowResponse> findFollowings(Long followerId, Long pageCursor, int fetchSize) {
         CursorBasedPaginatedResult<Follow> followings
+    public CursorBasedPaginatedResponse<FollowResponse> findFollowings(Long followerId, Long pageCursor, int fetchSize) {
+        CursorBasedPaginatedResponse<Follow> followings
                 = followRepository.getFollowings(followerId, pageCursor, fetchSize);
 
         List<FollowResponse> responseContent = followings.content().stream()
                 .map(FollowResponse::from)
                 .toList();
 
-        return new CursorBasedPaginatedResult<>(
+        return new CursorBasedPaginatedResponse<>(
                 responseContent, followings.nextCursor(), followings.hasNext());
     }
 
     public CursorBasedPaginatedResult<FollowResponse> findFollowers(Long followeeId, Long pageCursor, int fetchSize) {
         CursorBasedPaginatedResult<Follow> followings
+    public CursorBasedPaginatedResponse<FollowResponse> findFollowers(Long followeeId, Long pageCursor, int fetchSize) {
+        CursorBasedPaginatedResponse<Follow> followings
                 = followRepository.getFollowers(followeeId, pageCursor, fetchSize);
 
         List<FollowResponse> responseContent = followings.content().stream()
                 .map(FollowResponse::from)
                 .toList();
 
-        return new CursorBasedPaginatedResult<>(
+        return new CursorBasedPaginatedResponse<>(
                 responseContent, followings.nextCursor(), followings.hasNext());
     }
 }

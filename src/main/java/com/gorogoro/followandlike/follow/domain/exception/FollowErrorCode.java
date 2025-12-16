@@ -21,15 +21,9 @@ public enum FollowErrorCode implements ErrorCode {
         this.domainErrorMessage = domainErrorMessage;
     }
 
-
     @Override
     public HttpStatus getHttpStatusCode() {
         return httpStatus;
-    }
-
-    @Override
-    public String getHttpStatusMessage() {
-        return httpStatus.getReasonPhrase();
     }
 
     @Override

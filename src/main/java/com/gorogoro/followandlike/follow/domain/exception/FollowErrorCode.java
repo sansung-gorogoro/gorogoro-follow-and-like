@@ -37,4 +37,11 @@ public enum FollowErrorCode implements ErrorCode {
     public String getCode() {
         return code;
     }
+
+    @Override
+    public String getName() {
+        return this.name();
+    }
+
+
 }

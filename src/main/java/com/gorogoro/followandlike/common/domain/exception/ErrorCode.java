@@ -5,4 +5,5 @@ import org.springframework.http.HttpStatusCode;
 public interface ErrorCode {
     HttpStatusCode getHttpStatusCode();
     String getDomainErrorMessage();
+    String getCode();
 }

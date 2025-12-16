@@ -1,9 +1,11 @@
 package com.gorogoro.followandlike.common.presentation;
 
+import java.util.List;
+
 public record ErrorResponse(
         String code,
         String message,
-        FieldError[] errors
+        List<FieldError> errors
 ) {
     public record FieldError(
             String field,
@@ -11,7 +13,7 @@ public record ErrorResponse(
     ) {
     }
 
-    public static ErrorResponse of(String code, String message, FieldError[] errors) {
+    public static ErrorResponse of(String code, String message, List<FieldError> errors) {
         return new ErrorResponse(code, message, errors);
     }
 }

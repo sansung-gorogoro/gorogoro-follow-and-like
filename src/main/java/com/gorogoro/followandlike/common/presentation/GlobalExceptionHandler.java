@@ -3,6 +3,7 @@ package com.gorogoro.followandlike.common.presentation;
 import com.gorogoro.followandlike.common.domain.exception.BaseDomainException;
 import com.gorogoro.followandlike.common.domain.exception.ErrorCode;
 import com.gorogoro.followandlike.common.presentation.ErrorResponse.FieldError;
+import jakarta.servlet.ServletException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSourceResolvable;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -59,6 +61,36 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .badRequest()
+                .body(body);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ErrorResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+        final String ERROR_CODE = "MISSING_REQUEST_PARAMETER";
+        final String ERROR_MSG = "필수 요청 파라미터 누락. 이름: " + e.getParameterName() + ", 타입: " + e.getParameterType();
+
+        ErrorResponse body = ErrorResponse.of(ERROR_CODE, ERROR_MSG);
+
+        log.warn("{}: {}", ERROR_CODE, ERROR_MSG, e);
+
+        return ResponseEntity
+                .badRequest()
+                .body(body);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(ServletException.class)
+    public ResponseEntity<ErrorResponse> handleServletException(ServletException e) {
+        final String ERROR_CODE = "SERVLET_EXCEPTION";
+        final String ERROR_MSG = "예기치 못한 서블릿 예외";
+
+        ErrorResponse body = ErrorResponse.of(ERROR_CODE, ERROR_MSG);
+
+        log.warn("{}: {}", ERROR_CODE, ERROR_MSG, e);
+
+        return ResponseEntity
+                .internalServerError()
                 .body(body);
     }
 

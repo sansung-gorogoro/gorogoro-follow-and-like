@@ -18,5 +18,6 @@ public interface FollowHttpConstants {
     String ERR_MSG_FOLLOW_ID_IS_NULL = "followId 누락됨";
     String ERR_MSG_FOLLOW_ID_OUT_OF_RANGE = "followId 값 범위 오류: 0 또는 음수";
     String ERR_MSG_PAGE_CURSOR_OUT_OF_RANGE = "pageCursor 값 범위 오류: 음수";
-    String ERR_MSG_PAGE_SIZE_OUT_OF_RANGE = "pageSize 값 범위 오류: 1 미만 또는 100 초과";
+    String ERR_MSG_PAGE_SIZE_TOO_SMALL = "pageSize 값 범위 오류: " + MIN_PAGE_SIZE + " 미만";
+    String ERR_MSG_PAGE_SIZE_TOO_LARGE = "pageSize 값 범위 오류: " + MAX_PAGE_SIZE + " 초과";
 }

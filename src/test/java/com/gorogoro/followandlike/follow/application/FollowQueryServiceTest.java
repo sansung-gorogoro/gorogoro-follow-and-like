@@ -2,7 +2,7 @@ package com.gorogoro.followandlike.follow.application;
 
 import com.gorogoro.followandlike.follow.application.dto.FollowersCursorPageQuery;
 import com.gorogoro.followandlike.follow.application.dto.FollowingsCursorPageQuery;
-import com.gorogoro.followandlike.follow.application.dto.CursorPageResult;
+import com.gorogoro.followandlike.common.application.dto.CursorPageResult;
 import com.gorogoro.followandlike.follow.application.dto.FollowQueryResult;
 import com.gorogoro.followandlike.follow.application.dto.RequiredNonNegativeId;
 import com.gorogoro.followandlike.follow.application.dto.WhoFollowsWhom;

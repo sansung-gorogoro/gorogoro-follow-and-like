@@ -6,7 +6,7 @@ import com.gorogoro.followandlike.follow.application.dto.FollowQueryResult;
 import com.gorogoro.followandlike.follow.application.dto.RequiredNonNegativeId;
 import com.gorogoro.followandlike.follow.application.dto.WhoFollowsWhom;
 import com.gorogoro.followandlike.follow.domain.exception.FollowException;
-import com.gorogoro.followandlike.follow.application.dto.CursorPageResult;
+import com.gorogoro.followandlike.common.application.dto.CursorPageResult;
 import com.gorogoro.followandlike.follow.domain.model.Follow;
 import com.gorogoro.followandlike.follow.domain.repository.FollowRepository;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.gorogoro.followandlike.follow.application.dto;
+package com.gorogoro.followandlike.common.application.dto;
 
 import java.util.List;
 

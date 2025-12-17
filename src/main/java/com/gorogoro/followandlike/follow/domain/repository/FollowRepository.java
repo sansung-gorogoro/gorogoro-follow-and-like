@@ -1,7 +1,7 @@
 package com.gorogoro.followandlike.follow.domain.repository;
 
 import com.gorogoro.followandlike.follow.domain.model.Follow;
-import com.gorogoro.followandlike.follow.application.dto.CursorPageResult;
+import com.gorogoro.followandlike.common.application.dto.CursorPageResult;
 
 import java.util.Optional;
 

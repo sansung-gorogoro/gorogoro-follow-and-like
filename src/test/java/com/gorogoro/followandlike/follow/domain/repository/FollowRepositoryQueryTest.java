@@ -1,7 +1,7 @@
 package com.gorogoro.followandlike.follow.domain.repository;
 
 import com.gorogoro.followandlike.follow.domain.model.Follow;
-import com.gorogoro.followandlike.follow.application.dto.CursorPageResponse;
+import com.gorogoro.followandlike.follow.application.dto.CursorPageResult;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -119,7 +119,7 @@ class FollowRepositoryQueryTest {
         expected[NUM_ROWS - 1][2] = null;
 
         Long[][] actual = new Long[NUM_ROWS][NUM_COLS];
-        CursorPageResponse<Follow> pageFound = null;
+        CursorPageResult<Follow> pageFound = null;
         int r = 0;
         do {
             Long nextCursor = (pageFound == null) ? null : pageFound.nextCursor();
@@ -193,7 +193,7 @@ class FollowRepositoryQueryTest {
         expected[NUM_ROWS - 1][2] = null;
 
         Long[][] actual = new Long[NUM_ROWS][NUM_COLS];
-        CursorPageResponse<Follow> pageFound = null;
+        CursorPageResult<Follow> pageFound = null;
         int r = 0;
         do {
             Long nextCursor = (pageFound == null) ? null : pageFound.nextCursor();

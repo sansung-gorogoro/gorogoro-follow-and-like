@@ -2,11 +2,11 @@ package com.gorogoro.followandlike.follow.application;
 
 import com.gorogoro.followandlike.follow.application.dto.FollowersCursorPageQuery;
 import com.gorogoro.followandlike.follow.application.dto.FollowingsCursorPageQuery;
-import com.gorogoro.followandlike.follow.application.dto.FollowResponse;
+import com.gorogoro.followandlike.follow.application.dto.FollowQueryResult;
 import com.gorogoro.followandlike.follow.application.dto.RequiredNonNegativeId;
 import com.gorogoro.followandlike.follow.application.dto.WhoFollowsWhom;
 import com.gorogoro.followandlike.follow.domain.exception.FollowException;
-import com.gorogoro.followandlike.follow.application.dto.CursorPageResponse;
+import com.gorogoro.followandlike.follow.application.dto.CursorPageResult;
 import com.gorogoro.followandlike.follow.domain.model.Follow;
 import com.gorogoro.followandlike.follow.domain.repository.FollowRepository;
 import org.springframework.stereotype.Service;
@@ -27,19 +27,19 @@ public class FollowQueryService {
         this.followRepository = followRepository;
     }
 
-    public FollowResponse findById(RequiredNonNegativeId requiredNonNegativeId) {
-        return FollowResponse.from(
+    public FollowQueryResult findById(RequiredNonNegativeId requiredNonNegativeId) {
+        return FollowQueryResult.from(
                 followRepository.findById(requiredNonNegativeId.val())
                         .orElseThrow(() -> new FollowException(FOLLOW_NOT_FOUND))
         );
     }
 
-    public FollowResponse findByFollowerIdAndFolloweeId(WhoFollowsWhom whoFollowsWhom) {
+    public FollowQueryResult findByFollowerIdAndFolloweeId(WhoFollowsWhom whoFollowsWhom) {
         Optional<Follow> optionalFollow = followRepository.findByFollowerIdAndFolloweeId(
                 whoFollowsWhom.followerId(),
                 whoFollowsWhom.followeeId()
         );
-        return optionalFollow.map(FollowResponse::from).orElse(null);
+        return optionalFollow.map(FollowQueryResult::from).orElse(null);
     }
 
     public long countByFollowerId(RequiredNonNegativeId followerId) {
@@ -50,35 +50,35 @@ public class FollowQueryService {
         return followRepository.countByFolloweeId(followeeId.val());
     }
 
-    public CursorPageResponse<FollowResponse> findFollowings(FollowingsCursorPageQuery followingsCursorPageQuery) {
+    public CursorPageResult<FollowQueryResult> findFollowings(FollowingsCursorPageQuery followingsCursorPageQuery) {
 
-        CursorPageResponse<Follow> followings = followRepository.getFollowings(
+        CursorPageResult<Follow> followings = followRepository.getFollowings(
                 followingsCursorPageQuery.followerId(),
                 followingsCursorPageQuery.pageCursor(),
                 followingsCursorPageQuery.fetchSize()
         );
 
-        List<FollowResponse> responseContent = followings.content().stream()
-                .map(FollowResponse::from)
+        List<FollowQueryResult> responseContent = followings.content().stream()
+                .map(FollowQueryResult::from)
                 .toList();
 
-        return new CursorPageResponse<>(
+        return new CursorPageResult<>(
                 responseContent, followings.nextCursor(), followings.hasNext());
     }
 
-    public CursorPageResponse<FollowResponse> findFollowers(FollowersCursorPageQuery followersCursorPageQuery) {
+    public CursorPageResult<FollowQueryResult> findFollowers(FollowersCursorPageQuery followersCursorPageQuery) {
 
-        CursorPageResponse<Follow> followings = followRepository.getFollowers(
+        CursorPageResult<Follow> followings = followRepository.getFollowers(
                 followersCursorPageQuery.followeeId(),
                 followersCursorPageQuery.pageCursor(),
                 followersCursorPageQuery.fetchSize()
         );
 
-        List<FollowResponse> responseContent = followings.content().stream()
-                .map(FollowResponse::from)
+        List<FollowQueryResult> responseContent = followings.content().stream()
+                .map(FollowQueryResult::from)
                 .toList();
 
-        return new CursorPageResponse<>(
+        return new CursorPageResult<>(
                 responseContent, followings.nextCursor(), followings.hasNext());
     }
 }

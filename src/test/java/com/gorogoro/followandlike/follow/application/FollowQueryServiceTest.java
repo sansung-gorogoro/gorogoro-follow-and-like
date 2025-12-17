@@ -2,8 +2,8 @@ package com.gorogoro.followandlike.follow.application;
 
 import com.gorogoro.followandlike.follow.application.dto.FollowersCursorPageQuery;
 import com.gorogoro.followandlike.follow.application.dto.FollowingsCursorPageQuery;
-import com.gorogoro.followandlike.follow.application.dto.CursorPageResponse;
-import com.gorogoro.followandlike.follow.application.dto.FollowResponse;
+import com.gorogoro.followandlike.follow.application.dto.CursorPageResult;
+import com.gorogoro.followandlike.follow.application.dto.FollowQueryResult;
 import com.gorogoro.followandlike.follow.application.dto.RequiredNonNegativeId;
 import com.gorogoro.followandlike.follow.application.dto.WhoFollowsWhom;
 import com.gorogoro.followandlike.follow.domain.exception.FollowErrorCode;
@@ -236,7 +236,7 @@ class FollowQueryServiceTest {
         long followId = followRepository.findByFollowerIdAndFolloweeId(FOLLOWER_ID, FOLLOWEE_ID).orElseThrow().getId();
 
         // Act
-        FollowResponse result = followQueryService.findById(new RequiredNonNegativeId(followId));
+        FollowQueryResult result = followQueryService.findById(new RequiredNonNegativeId(followId));
 
         // Assert
         assertThat(result).isNotNull();
@@ -285,7 +285,7 @@ class FollowQueryServiceTest {
     @Test
     void findByFollowerIdAndFolloweeId_shouldFoundFollow_whenTheFollowExists() {
         // Act
-        FollowResponse result = followQueryService.findByFollowerIdAndFolloweeId(new WhoFollowsWhom(1L, 2L));
+        FollowQueryResult result = followQueryService.findByFollowerIdAndFolloweeId(new WhoFollowsWhom(1L, 2L));
 
         // Assert
         assertThat(result).isNotNull();
@@ -296,7 +296,7 @@ class FollowQueryServiceTest {
     @Test
     void findByFollowerIdAndFolloweeId_shouldReturnNull_whenTheFollowNotExists() {
         // Act
-        FollowResponse result = followQueryService.findByFollowerIdAndFolloweeId(new WhoFollowsWhom(100L, 200L));
+        FollowQueryResult result = followQueryService.findByFollowerIdAndFolloweeId(new WhoFollowsWhom(100L, 200L));
 
         // Assert
         assertThat(result).isNull();
@@ -305,7 +305,7 @@ class FollowQueryServiceTest {
     @Test
     void findByFollowerIdAndFolloweeId_shouldReturnNull_whenFollowerIdIsSameAsFolloweeId() {
         // Act
-        FollowResponse result = followQueryService.findByFollowerIdAndFolloweeId(new WhoFollowsWhom(1L, 1L));
+        FollowQueryResult result = followQueryService.findByFollowerIdAndFolloweeId(new WhoFollowsWhom(1L, 1L));
 
         // Assert
         assertThat(result).isNull();
@@ -393,7 +393,7 @@ class FollowQueryServiceTest {
     @Test
     void findFollowings_shouldFetchAllOnce_whenFollowerIdIs1AndFetchSizeIs14() {
         // Act
-        CursorPageResponse<FollowResponse> result =
+        CursorPageResult<FollowQueryResult> result =
                 followQueryService.findFollowings(new FollowingsCursorPageQuery(1L, null, 14));
 
         // Assert
@@ -405,7 +405,7 @@ class FollowQueryServiceTest {
     @Test
     void findFollowings_shouldFetchAllOnce_whenFollowerIdIs1AndFetchSizeIs13() {
         // Act
-        CursorPageResponse<FollowResponse> result =
+        CursorPageResult<FollowQueryResult> result =
                 followQueryService.findFollowings(new FollowingsCursorPageQuery(1L, null, 13));
 
         // Assert
@@ -417,7 +417,7 @@ class FollowQueryServiceTest {
     @Test
     void findFollowings_shouldFetch13Pages_whenFollowerIdIs1AndFetchSizeIs1() {
         // Act & Assert
-        CursorPageResponse<FollowResponse> result =
+        CursorPageResult<FollowQueryResult> result =
                 followQueryService.findFollowings(new FollowingsCursorPageQuery(1L, null, 1));
 
         int totalCount = 0;
@@ -441,7 +441,7 @@ class FollowQueryServiceTest {
     @Test
     void findFollowings_shouldFetchEmptyPage_whenFollowIsNotExists() {
         // Act
-        CursorPageResponse<FollowResponse> result =
+        CursorPageResult<FollowQueryResult> result =
                 followQueryService.findFollowings(new FollowingsCursorPageQuery(999L, null, 10));
 
         // Assert
@@ -480,7 +480,7 @@ class FollowQueryServiceTest {
     @Test
     void findFollowers_shouldFetchAllOnce_whenFolloweeIdIs1AndFetchSizeIs18() {
         // Act
-        CursorPageResponse<FollowResponse> result =
+        CursorPageResult<FollowQueryResult> result =
                 followQueryService.findFollowers(new FollowersCursorPageQuery(1L, null, 18));
 
         // Assert
@@ -492,7 +492,7 @@ class FollowQueryServiceTest {
     @Test
     void findFollowers_shouldFetchAllOnce_whenFolloweeIdIs1AndFetchSizeIs17() {
         // Act
-        CursorPageResponse<FollowResponse> result =
+        CursorPageResult<FollowQueryResult> result =
                 followQueryService.findFollowers(new FollowersCursorPageQuery(1L, null, 17));
 
         // Assert
@@ -504,7 +504,7 @@ class FollowQueryServiceTest {
     @Test
     void findFollowers_shouldFetch17Pages_whenFolloweeIdIs1AndFetchSizeIs1() {
         // Act & Assert
-        CursorPageResponse<FollowResponse> result =
+        CursorPageResult<FollowQueryResult> result =
                 followQueryService.findFollowers(new FollowersCursorPageQuery(1L, null, 1));
 
         int totalCount = 0;
@@ -528,7 +528,7 @@ class FollowQueryServiceTest {
     @Test
     void findFollowers_shouldFetchEmptyPage_whenFollowIsNotExists() {
         // Act
-        CursorPageResponse<FollowResponse> result =
+        CursorPageResult<FollowQueryResult> result =
                 followQueryService.findFollowers(new FollowersCursorPageQuery(999L, null, 10));
 
         // Assert

@@ -1,7 +1,7 @@
 package com.gorogoro.followandlike.follow.application;
 
-import com.gorogoro.followandlike.follow.application.dto.FollowersCursorPageRequest;
-import com.gorogoro.followandlike.follow.application.dto.FollowingsCursorPageRequest;
+import com.gorogoro.followandlike.follow.application.dto.FollowersCursorPageQuery;
+import com.gorogoro.followandlike.follow.application.dto.FollowingsCursorPageQuery;
 import com.gorogoro.followandlike.follow.application.dto.CursorPageResponse;
 import com.gorogoro.followandlike.follow.application.dto.FollowResponse;
 import com.gorogoro.followandlike.follow.application.dto.RequiredNonNegativeId;
@@ -394,7 +394,7 @@ class FollowQueryServiceTest {
     void findFollowings_shouldFetchAllOnce_whenFollowerIdIs1AndFetchSizeIs14() {
         // Act
         CursorPageResponse<FollowResponse> result =
-                followQueryService.findFollowings(new FollowingsCursorPageRequest(1L, null, 14));
+                followQueryService.findFollowings(new FollowingsCursorPageQuery(1L, null, 14));
 
         // Assert
         assertThat(result.content()).hasSize(13);
@@ -406,7 +406,7 @@ class FollowQueryServiceTest {
     void findFollowings_shouldFetchAllOnce_whenFollowerIdIs1AndFetchSizeIs13() {
         // Act
         CursorPageResponse<FollowResponse> result =
-                followQueryService.findFollowings(new FollowingsCursorPageRequest(1L, null, 13));
+                followQueryService.findFollowings(new FollowingsCursorPageQuery(1L, null, 13));
 
         // Assert
         assertThat(result.content()).hasSize(13);
@@ -418,7 +418,7 @@ class FollowQueryServiceTest {
     void findFollowings_shouldFetch13Pages_whenFollowerIdIs1AndFetchSizeIs1() {
         // Act & Assert
         CursorPageResponse<FollowResponse> result =
-                followQueryService.findFollowings(new FollowingsCursorPageRequest(1L, null, 1));
+                followQueryService.findFollowings(new FollowingsCursorPageQuery(1L, null, 1));
 
         int totalCount = 0;
         Long cursor = null;
@@ -432,7 +432,7 @@ class FollowQueryServiceTest {
             }
 
             cursor = result.nextCursor();
-            result = followQueryService.findFollowings(new FollowingsCursorPageRequest(1L, cursor, 1));
+            result = followQueryService.findFollowings(new FollowingsCursorPageQuery(1L, cursor, 1));
         }
 
         assertThat(totalCount).isEqualTo(13);
@@ -442,7 +442,7 @@ class FollowQueryServiceTest {
     void findFollowings_shouldFetchEmptyPage_whenFollowIsNotExists() {
         // Act
         CursorPageResponse<FollowResponse> result =
-                followQueryService.findFollowings(new FollowingsCursorPageRequest(999L, null, 10));
+                followQueryService.findFollowings(new FollowingsCursorPageQuery(999L, null, 10));
 
         // Assert
         assertThat(result.content()).isEmpty();
@@ -453,24 +453,24 @@ class FollowQueryServiceTest {
     @Test
     void findFollowings_shouldThrowNullPointerException_whenFollowerIdIsNull() {
         // Act & Assert
-        assertThatThrownBy(() -> followQueryService.findFollowings(new FollowingsCursorPageRequest(null, null, 10)))
+        assertThatThrownBy(() -> followQueryService.findFollowings(new FollowingsCursorPageQuery(null, null, 10)))
                 .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void findFollowings_shouldThrowIllegalArgumentException_whenPageCursorIsNegative() {
         // Act & Assert
-        assertThatThrownBy(() -> followQueryService.findFollowings(new FollowingsCursorPageRequest(1L, -1L, 10)))
+        assertThatThrownBy(() -> followQueryService.findFollowings(new FollowingsCursorPageQuery(1L, -1L, 10)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void findFollowings_shouldThrowIllegalArgumentException_whenFetchSizeIsLesserThan1_OrGreaterThan100() {
         // Act & Assert
-        assertThatThrownBy(() -> followQueryService.findFollowings(new FollowingsCursorPageRequest(1L, null, 0)))
+        assertThatThrownBy(() -> followQueryService.findFollowings(new FollowingsCursorPageQuery(1L, null, 0)))
                 .isInstanceOf(IllegalArgumentException.class);
 
-        assertThatThrownBy(() -> followQueryService.findFollowings(new FollowingsCursorPageRequest(1L, null, 101)))
+        assertThatThrownBy(() -> followQueryService.findFollowings(new FollowingsCursorPageQuery(1L, null, 101)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -481,7 +481,7 @@ class FollowQueryServiceTest {
     void findFollowers_shouldFetchAllOnce_whenFolloweeIdIs1AndFetchSizeIs18() {
         // Act
         CursorPageResponse<FollowResponse> result =
-                followQueryService.findFollowers(new FollowersCursorPageRequest(1L, null, 18));
+                followQueryService.findFollowers(new FollowersCursorPageQuery(1L, null, 18));
 
         // Assert
         assertThat(result.content()).hasSize(17);
@@ -493,7 +493,7 @@ class FollowQueryServiceTest {
     void findFollowers_shouldFetchAllOnce_whenFolloweeIdIs1AndFetchSizeIs17() {
         // Act
         CursorPageResponse<FollowResponse> result =
-                followQueryService.findFollowers(new FollowersCursorPageRequest(1L, null, 17));
+                followQueryService.findFollowers(new FollowersCursorPageQuery(1L, null, 17));
 
         // Assert
         assertThat(result.content()).hasSize(17);
@@ -505,7 +505,7 @@ class FollowQueryServiceTest {
     void findFollowers_shouldFetch17Pages_whenFolloweeIdIs1AndFetchSizeIs1() {
         // Act & Assert
         CursorPageResponse<FollowResponse> result =
-                followQueryService.findFollowers(new FollowersCursorPageRequest(1L, null, 1));
+                followQueryService.findFollowers(new FollowersCursorPageQuery(1L, null, 1));
 
         int totalCount = 0;
         Long cursor = null;
@@ -519,7 +519,7 @@ class FollowQueryServiceTest {
             }
 
             cursor = result.nextCursor();
-            result = followQueryService.findFollowers(new FollowersCursorPageRequest(1L, cursor, 1));
+            result = followQueryService.findFollowers(new FollowersCursorPageQuery(1L, cursor, 1));
         }
 
         assertThat(totalCount).isEqualTo(17);
@@ -529,7 +529,7 @@ class FollowQueryServiceTest {
     void findFollowers_shouldFetchEmptyPage_whenFollowIsNotExists() {
         // Act
         CursorPageResponse<FollowResponse> result =
-                followQueryService.findFollowers(new FollowersCursorPageRequest(999L, null, 10));
+                followQueryService.findFollowers(new FollowersCursorPageQuery(999L, null, 10));
 
         // Assert
         assertThat(result.content()).isEmpty();
@@ -540,24 +540,24 @@ class FollowQueryServiceTest {
     @Test
     void findFollowers_shouldThrowNullPointerException_whenFolloweeIdIsNull() {
         // Act & Assert
-        assertThatThrownBy(() -> followQueryService.findFollowers(new FollowersCursorPageRequest(null, null, 10)))
+        assertThatThrownBy(() -> followQueryService.findFollowers(new FollowersCursorPageQuery(null, null, 10)))
                 .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void findFollowers_shouldThrowIllegalArgumentException_whenPageCursorIsNegative() {
         // Act & Assert
-        assertThatThrownBy(() -> followQueryService.findFollowers(new FollowersCursorPageRequest(1L, -1L, 10)))
+        assertThatThrownBy(() -> followQueryService.findFollowers(new FollowersCursorPageQuery(1L, -1L, 10)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void findFollowers_shouldThrowIllegalArgumentException_whenFetchSizeIsLesserThan1_OrGreaterThan100() {
         // Act & Assert
-        assertThatThrownBy(() -> followQueryService.findFollowers(new FollowersCursorPageRequest(1L, null, 0)))
+        assertThatThrownBy(() -> followQueryService.findFollowers(new FollowersCursorPageQuery(1L, null, 0)))
                 .isInstanceOf(IllegalArgumentException.class);
 
-        assertThatThrownBy(() -> followQueryService.findFollowers(new FollowersCursorPageRequest(1L, null, 101)))
+        assertThatThrownBy(() -> followQueryService.findFollowers(new FollowersCursorPageQuery(1L, null, 101)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

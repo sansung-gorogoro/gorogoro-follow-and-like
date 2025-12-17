@@ -1,7 +1,7 @@
 package com.gorogoro.followandlike.follow.infrastructure.jpa;
 
 import com.gorogoro.followandlike.follow.domain.model.Follow;
-import com.gorogoro.followandlike.follow.application.dto.CursorPageResponse;
+import com.gorogoro.followandlike.follow.application.dto.CursorPageResult;
 import com.gorogoro.followandlike.follow.domain.repository.FollowRepository;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.PageRequest;
@@ -60,7 +60,7 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
      * @param fetchSize MIN_FETCH_SIZE 보다 커야하고, MAX_FETCH_SIZE 보다 작아야 함.
      */
     @Override
-    public CursorPageResponse<Follow> getFollowings(Long followerId, Long pageCursor, int fetchSize) {
+    public CursorPageResult<Follow> getFollowings(Long followerId, Long pageCursor, int fetchSize) {
 
         Pageable pageable = getPageable(fetchSize);
 
@@ -73,7 +73,7 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
 
         List<Follow> content = sliceToFollows(slice);
         Long nextCursor = getNextCursor(content, slice);
-        return new CursorPageResponse<>(content, nextCursor, slice.hasNext());
+        return new CursorPageResult<>(content, nextCursor, slice.hasNext());
     }
 
     /**
@@ -83,7 +83,7 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
      * @param fetchSize MIN_FETCH_SIZE 보다 커야하고, MAX_FETCH_SIZE 보다 작아야 함.
      */
     @Override
-    public CursorPageResponse<Follow> getFollowers(Long followeeId, Long pageCursor, int fetchSize) {
+    public CursorPageResult<Follow> getFollowers(Long followeeId, Long pageCursor, int fetchSize) {
 
         Pageable pageable = getPageable(fetchSize);
 
@@ -96,7 +96,7 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
 
         List<Follow> content = sliceToFollows(slice);
         Long nextCursor = getNextCursor(content, slice);
-        return new CursorPageResponse<>(content, nextCursor, slice.hasNext());
+        return new CursorPageResult<>(content, nextCursor, slice.hasNext());
     }
 
     // Command --------------------

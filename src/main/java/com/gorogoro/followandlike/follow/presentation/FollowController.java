@@ -2,6 +2,7 @@ package com.gorogoro.followandlike.follow.presentation;
 
 import com.gorogoro.followandlike.follow.application.FollowCommandService;
 import com.gorogoro.followandlike.follow.application.FollowQueryService;
+import com.gorogoro.followandlike.follow.application.dto.FollowQueryResult;
 import com.gorogoro.followandlike.follow.application.dto.WhoFollowsWhom;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.lang.model.type.NullType;
 
 @RestController
 @RequestMapping("/api/follows")

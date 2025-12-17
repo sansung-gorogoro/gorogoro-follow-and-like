@@ -2,19 +2,19 @@ package com.gorogoro.followandlike.follow.application.dto;
 
 import java.util.Objects;
 
-public record FollowersCursorPageRequest(
-        Long followeeId,
+public record FollowingsCursorPageQuery(
+        Long followerId,
         Long pageCursor,
         int fetchSize
 ) {
-    public FollowersCursorPageRequest {
+    public FollowingsCursorPageQuery {
 
         final int MIN_FETCH_SIZE = 1;
         final int MAX_FETCH_SIZE = 100;
 
-        Objects.requireNonNull(followeeId, "followeeId");
-        if (followeeId < 0) {
-            throw new IllegalArgumentException("followeeId 는 양수여야 합니다. followeeId = " + followeeId);
+        Objects.requireNonNull(followerId, "followerId");
+        if (followerId < 0) {
+            throw new IllegalArgumentException("followerId 는 양수여야 합니다. followerId = " + followerId);
         }
 
         if (pageCursor != null && pageCursor < 0) {

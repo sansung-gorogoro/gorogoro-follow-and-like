@@ -1,7 +1,7 @@
 package com.gorogoro.followandlike.follow.application;
 
-import com.gorogoro.followandlike.follow.application.dto.FollowersCursorPageRequest;
-import com.gorogoro.followandlike.follow.application.dto.FollowingsCursorPageRequest;
+import com.gorogoro.followandlike.follow.application.dto.FollowersCursorPageQuery;
+import com.gorogoro.followandlike.follow.application.dto.FollowingsCursorPageQuery;
 import com.gorogoro.followandlike.follow.application.dto.FollowResponse;
 import com.gorogoro.followandlike.follow.application.dto.RequiredNonNegativeId;
 import com.gorogoro.followandlike.follow.application.dto.WhoFollowsWhom;
@@ -50,12 +50,12 @@ public class FollowQueryService {
         return followRepository.countByFolloweeId(followeeId.val());
     }
 
-    public CursorPageResponse<FollowResponse> findFollowings(FollowingsCursorPageRequest followingsCursorPageRequest) {
+    public CursorPageResponse<FollowResponse> findFollowings(FollowingsCursorPageQuery followingsCursorPageQuery) {
 
         CursorPageResponse<Follow> followings = followRepository.getFollowings(
-                followingsCursorPageRequest.followerId(),
-                followingsCursorPageRequest.pageCursor(),
-                followingsCursorPageRequest.fetchSize()
+                followingsCursorPageQuery.followerId(),
+                followingsCursorPageQuery.pageCursor(),
+                followingsCursorPageQuery.fetchSize()
         );
 
         List<FollowResponse> responseContent = followings.content().stream()
@@ -66,12 +66,12 @@ public class FollowQueryService {
                 responseContent, followings.nextCursor(), followings.hasNext());
     }
 
-    public CursorPageResponse<FollowResponse> findFollowers(FollowersCursorPageRequest followersCursorPageRequest) {
+    public CursorPageResponse<FollowResponse> findFollowers(FollowersCursorPageQuery followersCursorPageQuery) {
 
         CursorPageResponse<Follow> followings = followRepository.getFollowers(
-                followersCursorPageRequest.followeeId(),
-                followersCursorPageRequest.pageCursor(),
-                followersCursorPageRequest.fetchSize()
+                followersCursorPageQuery.followeeId(),
+                followersCursorPageQuery.pageCursor(),
+                followersCursorPageQuery.fetchSize()
         );
 
         List<FollowResponse> responseContent = followings.content().stream()

@@ -5,12 +5,12 @@ import java.util.Objects;
 public record FollowingsCursorPageQuery(
         Long followerId,
         Long pageCursor,
-        int fetchSize
+        int pageSize
 ) {
     public FollowingsCursorPageQuery {
 
-        final int MIN_FETCH_SIZE = 1;
-        final int MAX_FETCH_SIZE = 100;
+        final int MIN_PAGE_SIZE = 1;
+        final int MAX_PAGE_SIZE = 100;
 
         Objects.requireNonNull(followerId, "followerId");
         if (followerId < 0) {
@@ -21,9 +21,9 @@ public record FollowingsCursorPageQuery(
             throw new IllegalArgumentException("pageCursor는 음수일 수 없습니다. pageCursor = " + pageCursor);
         }
 
-        if (fetchSize < MIN_FETCH_SIZE || MAX_FETCH_SIZE < fetchSize) {
+        if (pageSize < MIN_PAGE_SIZE || MAX_PAGE_SIZE < pageSize) {
             throw new IllegalArgumentException(
-                    "fetchSize 가 " + MIN_FETCH_SIZE +" 보다 작거나 " + MAX_FETCH_SIZE + " 보다 큽니다.");
+                    "pageSize 가 " + MIN_PAGE_SIZE +" 보다 작거나 " + MAX_PAGE_SIZE + " 보다 큽니다.");
         }
     }
 }

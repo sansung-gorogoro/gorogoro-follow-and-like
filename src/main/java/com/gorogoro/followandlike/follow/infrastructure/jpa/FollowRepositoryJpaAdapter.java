@@ -54,7 +54,7 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
     private final String PAGE_SORT_CRITERIA_FIELD_NAME = "id";
 
     /**
-     * followerId 의 정렬된 팔로"우" 목록 중 pageCursor 이후 fetchSize 만큼 가져옵니다.
+     * followerId 의 정렬된 팔로"우" 목록 중 pageCursor 이후 pageSize 만큼 가져옵니다.
      * @param followerId null 안 됨
      * @param pageCursor exclusive, null 인 경우 첫 페이지 반환함
      * @param fetchSize MIN_FETCH_SIZE 보다 커야하고, MAX_FETCH_SIZE 보다 작아야 함.
@@ -77,7 +77,7 @@ public class FollowRepositoryJpaAdapter implements FollowRepository {
     }
 
     /**
-     * followeeId 의 정렬된 팔로"잉" 목록 중 pageCursor 이후 fetchSize 만큼 가져옵니다.
+     * followeeId 의 정렬된 팔로"잉" 목록 중 pageCursor 이후 pageSize 만큼 가져옵니다.
      * @param followeeId null 안 됨
      * @param pageCursor exclusive, null 인 경우 첫 페이지 반환함
      * @param fetchSize MIN_FETCH_SIZE 보다 커야하고, MAX_FETCH_SIZE 보다 작아야 함.

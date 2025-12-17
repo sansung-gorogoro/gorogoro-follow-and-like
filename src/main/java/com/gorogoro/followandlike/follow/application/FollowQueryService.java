@@ -55,7 +55,7 @@ public class FollowQueryService {
         CursorPageResult<Follow> followings = followRepository.getFollowings(
                 followingsCursorPageQuery.followerId(),
                 followingsCursorPageQuery.pageCursor(),
-                followingsCursorPageQuery.fetchSize()
+                followingsCursorPageQuery.pageSize()
         );
 
         List<FollowQueryResult> responseContent = followings.content().stream()
@@ -71,7 +71,7 @@ public class FollowQueryService {
         CursorPageResult<Follow> followings = followRepository.getFollowers(
                 followersCursorPageQuery.followeeId(),
                 followersCursorPageQuery.pageCursor(),
-                followersCursorPageQuery.fetchSize()
+                followersCursorPageQuery.pageSize()
         );
 
         List<FollowQueryResult> responseContent = followings.content().stream()

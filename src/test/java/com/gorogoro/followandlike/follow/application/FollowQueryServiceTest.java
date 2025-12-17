@@ -388,7 +388,7 @@ class FollowQueryServiceTest {
     }
 
     // findFollowings Tests --------------------
-    // nextCursor 가 null 일 때까지 주어진 fetchSize 와 같은 크기로 계속해서 조회
+    // nextCursor 가 null 일 때까지 주어진 pageSize 와 같은 크기로 계속해서 조회
 
     @Test
     void findFollowings_shouldFetchAllOnce_whenFollowerIdIs1AndFetchSizeIs14() {
@@ -475,7 +475,7 @@ class FollowQueryServiceTest {
     }
 
     // getFollowers --------------------
-    // nextCursor 가 null 일 때까지 주어진 fetchSize 와 같은 크기로 계속해서 조회
+    // nextCursor 가 null 일 때까지 주어진 pageSize 와 같은 크기로 계속해서 조회
 
     @Test
     void findFollowers_shouldFetchAllOnce_whenFolloweeIdIs1AndFetchSizeIs18() {

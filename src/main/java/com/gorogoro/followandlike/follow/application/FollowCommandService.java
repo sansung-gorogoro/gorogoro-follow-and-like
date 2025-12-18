@@ -30,6 +30,7 @@ public class FollowCommandService {
     }
 
     public void unfollow(WhoFollowsWhom whoFollowsWhom) {
+        // 언팔로우 시에는 따로 사용자 존재 여부 검증 안 해도 됨
         // DB에 삭제 대상이 없어도 별도 예외가 발생하지 않으므로 멱등성이 보장된다.
         followRepository.deleteByFollowerIdAndFolloweeId(whoFollowsWhom.followerId(), whoFollowsWhom.followeeId());
     }

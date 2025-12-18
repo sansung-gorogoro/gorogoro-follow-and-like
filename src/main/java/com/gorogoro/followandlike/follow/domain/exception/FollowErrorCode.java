@@ -10,7 +10,9 @@ public enum FollowErrorCode implements ErrorCode {
     FOLLOWEE_ID_IS_NULL(HttpStatus.BAD_REQUEST, "followeeId 가 null 입니다.", "FOL-003"),
     FOLLOWEE_ID_IS_NEGATIVE(HttpStatus.BAD_REQUEST, "followeeId 가 음수입니다.", "FOL-004"),
     FOLLOWED_ONESELF(HttpStatus.BAD_REQUEST, "자기자신을 팔로우할 수 없습니다. followerId 와 followeeId 가 같습니다.", "FOL-005"),
-    FOLLOW_NOT_FOUND(HttpStatus.NOT_FOUND, "팔로우를 찾을 수 없습니다.", "FOL-006")
+    FOLLOW_NOT_FOUND(HttpStatus.NOT_FOUND, "팔로우를 찾을 수 없습니다.", "FOL-006"),
+    FOLLOWER_NOT_FOUNT(HttpStatus.BAD_REQUEST, "존재하지 않는 follower", "FOL-007"),
+    FOLLOWEE_NOT_FOUNT(HttpStatus.BAD_REQUEST, "존재하지 않는 followee", "FOL-008"),
     ;
 
     private final HttpStatus httpStatus;

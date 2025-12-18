@@ -24,7 +24,10 @@ public class FollowCommandService {
     public void follow(WhoFollowsWhom whoFollowsWhom) {
         Follow follow = new Follow(whoFollowsWhom.followerId(), whoFollowsWhom.followeeId());
 
-        validateUserExistence(whoFollowsWhom);
+        // followerId 의 경우 게이트웨이에서 인증 과정을 통해 존재 여부가 이미 보장되어 있으므로 별도 검증이 불필요함
+        if (!userClient.exists(whoFollowsWhom.followeeId())) {
+            throw new FollowException(FollowErrorCode.FOLLOWEE_NOT_FOUNT);
+        }
 
         followRepository.saveIdempotently(follow);
     }
@@ -33,17 +36,5 @@ public class FollowCommandService {
         // 언팔로우 시에는 따로 사용자 존재 여부 검증 안 해도 됨
         // DB에 삭제 대상이 없어도 별도 예외가 발생하지 않으므로 멱등성이 보장된다.
         followRepository.deleteByFollowerIdAndFolloweeId(whoFollowsWhom.followerId(), whoFollowsWhom.followeeId());
-    }
-
-    // Helpers --------------------
-
-    private void validateUserExistence(WhoFollowsWhom whoFollowsWhom) {
-        if (!userClient.exists(whoFollowsWhom.followerId())) {
-            throw new FollowException(FollowErrorCode.FOLLOWER_NOT_FOUNT);
-        }
-
-        if (!userClient.exists(whoFollowsWhom.followeeId())) {
-            throw new FollowException(FollowErrorCode.FOLLOWEE_NOT_FOUNT);
-        }
     }
 }
